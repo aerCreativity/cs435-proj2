@@ -6,7 +6,7 @@ public class Graph {
     private static HashMap<Node,HashSet<Node>> adjList;
 
     // Adds a node to the graph.
-    public static void addNode(final String nodeVal) {
+    public void addNode(final String nodeVal) {
         Node temp = new Node(nodeVal);
         if(nodeList.contains(temp)) {
             return;
@@ -18,7 +18,7 @@ public class Graph {
     }
 
     // Adds an undirected edge between two nodes.
-    public static void addUndirectedEdge(final Node first, final Node second) {
+    public void addUndirectedEdge(final Node first, final Node second) {
         // if these nodes don't exist, display an error
         if(!(nodeList.contains(first) &&  nodeList.contains(second))) {
             System.err.print("Check if these Nodes are in Graph!");
@@ -30,7 +30,7 @@ public class Graph {
     }
 
     // Remove an undirected edge between two nodes.
-    public static void removeUndirectedEdge(final Node first, final Node second) {
+    public void removeUndirectedEdge(final Node first, final Node second) {
         // if these nodes don't exist, display an error
         if(!(nodeList.contains(first) &&  nodeList.contains(second))) {
             System.err.print("Check if these Nodes are in Graph!");
@@ -46,7 +46,7 @@ public class Graph {
     }
 
     // Returns a hashSet of all Nodes in the graph
-    public static HashSet<Node> getAllNodes() {
+    public HashSet<Node> getAllNodes() {
         return nodeList;
     }
 }
