@@ -13,7 +13,7 @@ class Main {
                 problemThreeTest();
                 break;
             case 4:
-                problemFourTest();
+                problemFourTest(testSize);
                 break;
             case 5:
                 problemFiveTest(testSize);
@@ -44,8 +44,8 @@ class Main {
     }
 
     // Test for problem four.
-    private static void problemFourTest() {
-        DirectedGraph dag = createRandomDAGIter(1000);
+    private static void problemFourTest(int testSize) {
+        DirectedGraph dag = createRandomDAGIter(testSize);
         printArr(TopSort.Kahns(dag));
         printArr(TopSort.mDFS(dag));
         return;
@@ -156,7 +156,6 @@ class Main {
     // Generates a random grid of size n x n with randomly assigned edges
     public static GridGraph createRandomGridGraph(int n) {
         GridGraph g = new GridGraph();
-        g.resizeGrid(n);    // resize to n x n grid
         for(int i=0;i<n;i++) {
             for(int j=0;j<n;j++) {
                 String randStr = randomString(n/2);

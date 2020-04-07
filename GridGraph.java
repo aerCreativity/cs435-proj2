@@ -4,13 +4,16 @@ public class GridGraph {
     // Note that getAllNodes is inherited from Graph and therefore not implemented.
     private static HashSet<GridNode> nodeList;
     private static HashMap<GridNode,HashSet<GridNode>> adjList;
-    private static GridNode[][] nodeMap = new GridNode[1000][1000];
+
+    public GridGraph() {
+        nodeList = new HashSet<GridNode>();
+        adjList = new HashMap<GridNode,HashSet<GridNode>>();
+    }
 
     // adds a gridnode at pos x,y with value nodeVal
     public void addGridNode(final int x, final int y, final String nodeVal) {
         GridNode newNode = new GridNode(x,y,nodeVal);
         nodeList.add(newNode);
-        nodeMap[x][y] = newNode;
     }
 
     // Adds an undirected edge between two nodes.
@@ -63,11 +66,11 @@ public class GridGraph {
 
     // Helper method to assist in finding Nodes using the NodeMap.
     public GridNode findNode(int x, int y) {
-        return nodeMap[x][y];
-    }
-
-    // Helper method to change the size of the GridGraph.
-    public void resizeGrid(int n) {
-        nodeMap = new GridNode[n][n];
+        for(GridNode n : nodeList) {
+            if(n.x == x && n.y == y) {
+                return n;
+            }
+        }
+        return null;
     }
 }
