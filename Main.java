@@ -7,7 +7,7 @@ class Main {
 
     public static void main(final String[] args) {
         int testToRun = 6;
-        int testSize = 10;
+        int testSize = 1000;
         switch(testToRun) {
             case 3:
                 problemThreeTest();
@@ -79,10 +79,14 @@ class Main {
         GridNode source = gg.findNode(0,0);
         GridNode dest = gg.findNode(testSize,testSize);
         ArrayList<GridNode> bestPath = astar(source,dest);
-        for(GridNode n : bestPath) {
-            System.out.print(n.value+", ");
+        if(bestPath == null) {
+            System.out.println("There is no best path.");
+        } else {
+            for(GridNode n : bestPath) {
+                System.out.print(n.value+", ");
+            }
+            System.out.println();
         }
-        System.out.println();
     }
 
     // Test for problem seven.
@@ -93,59 +97,60 @@ class Main {
     // Performs A* from sourceNode to destNode
     public static ArrayList<GridNode> astar(final GridNode sourceNode, final GridNode destNode) {
         ArrayList<GridNode> path = new ArrayList<GridNode>();
-        HashSet<GridNode> untravelled = new HashSet<GridNode>();
         HashSet<GridNode> seen = new HashSet<GridNode>();
         Deque<GridNode> toTravel = new ArrayDeque<>();
 
-        untravelled.add(sourceNode);
         toTravel.push(sourceNode);
         while(!toTravel.isEmpty()) {
             GridNode curr = toTravel.poll();
-            untravelled.remove(curr);
             seen.add(curr);
             path.add(curr);
             // have we reached the destination?
             if(curr == destNode) {
                 break;
             }
+            // Add up to two adj nodes to stack to travel
+            GridNode n1 = null;
+            GridNode n2 = null;
+            for(GridNode n : curr.adj) {
+                // Because these paths are undirected, there are paths backwards towards source.
+                if(n.x<curr.x || n.y<curr.y) {
+                    continue;
+                }
+                if(n1 == null) {
+                    n1 = n;
+                } else {
+                    n2 = n;
+                }
+            }
             // is this a dead end?
-            if(curr.adj.isEmpty()) {
+            if(n1 == null) {
                 // Backtracking until we have an alternate path that is untravelled
                 boolean backtrack = true;
                 while(backtrack) {
+                    // if we run out of path and there is no solution
+                    if(path.size() == 0) {
+                        return null;
+                    }
                     curr = path.get(path.size()-1);
                     path.remove(curr);
                     for(GridNode n : curr.adj) {
-                        if(untravelled.contains(n)) {
+                        if(toTravel.peek() == n) {
                             backtrack = false;
                         }
                     }
                 }
-            } else {
-                // Add adj nodes to stack to travel
-                GridNode n1 = null;
-                GridNode n2 = null;
-                for(GridNode n : curr.adj) {
-                    untravelled.add(n);
-                    if(n1 == null) {
-                        n1 = n;
-                    } else {
-                        n2 = n;
-                    }
-                }
-                // if there's only one path to go
-                if(n2 == null) {
+            } else if(n2 == null) { // if there's only one path to travel
+                toTravel.push(n1);
+                continue;
+            } else {    // Apply heuristics
+                // pick whichever node has an x closer to its y to traverse first
+                if(Math.abs(n1.x-n1.y) < Math.abs(n2.x-n2.y)) {
                     toTravel.push(n2);
-                    continue;
-                } else {    // Apply heuristics
-                    // pick whichever node has an x closer to its y to traverse first
-                    if(Math.abs(n1.x-n1.y) < Math.abs(n2.x-n2.y)) {
-                        toTravel.push(n2);
-                        toTravel.push(n1);
-                    } else {
-                        toTravel.push(n1);
-                        toTravel.push(n2);
-                    }
+                    toTravel.push(n1);
+                } else {
+                    toTravel.push(n1);
+                    toTravel.push(n2);
                 }
             }
         }
