@@ -21,9 +21,6 @@ class Main {
             case 6:
                 problemSixTest(testSize);
                 break;
-            case 7:
-                problemSevenTest();
-                break;
             default:
                 break;
         }
@@ -89,11 +86,6 @@ class Main {
         }
     }
 
-    // Test for problem seven.
-    private static void problemSevenTest() {
-        // TODO
-    }
-
     // Performs A* from sourceNode to destNode
     public static ArrayList<GridNode> astar(final GridNode sourceNode, final GridNode destNode) {
         ArrayList<GridNode> path = new ArrayList<GridNode>();
@@ -130,6 +122,8 @@ class Main {
                 while(backtrack) {
                     // if we run out of path and there is no solution
                     if(path.size() == 0) {
+                        // For problem seven.
+                        System.out.println(seen.size()+" nodes were traversed before finding this solution.");
                         return null;
                     }
                     curr = path.get(path.size()-1);
@@ -154,6 +148,9 @@ class Main {
                 }
             }
         }
+
+        // For problem seven.
+        System.out.println(seen.size()+" nodes were traversed before finding this solution.");
 
         return path;
     }
@@ -226,6 +223,9 @@ class Main {
                 break;
             }
         }
+
+        // For part 7: showing how many nodes are finalized.
+        System.out.print((distances.keySet().size()-untravelled.size())+" nodes were checked in dijkstras");
 
         return distances;
     }
