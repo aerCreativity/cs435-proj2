@@ -14,6 +14,8 @@ public class GridGraph {
     public void addGridNode(final int x, final int y, final String nodeVal) {
         GridNode newNode = new GridNode(x,y,nodeVal);
         nodeList.add(newNode);
+        HashSet<GridNode> temp = new HashSet<GridNode>();
+        adjList.put(newNode,temp);
     }
 
     // Adds an undirected edge between two nodes.

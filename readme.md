@@ -1,1 +1,1 @@
-hi.
+This is the CS435 project 2 for NJIT's CS435 class, under professor Sresht Rengesh.

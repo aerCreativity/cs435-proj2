@@ -7,7 +7,7 @@ class Main {
 
     public static void main(final String[] args) {
         int testToRun = 6;
-        int testSize = 1000;
+        int testSize = 10;
         switch(testToRun) {
             case 3:
                 problemThreeTest();
@@ -156,16 +156,16 @@ class Main {
     // Generates a random grid of size n x n with randomly assigned edges
     public static GridGraph createRandomGridGraph(int n) {
         GridGraph g = new GridGraph();
-        for(int i=0;i<n;i++) {
-            for(int j=0;j<n;j++) {
+        for(int i=0;i<=n;i++) {
+            for(int j=0;j<=n;j++) {
                 String randStr = randomString(n/2);
                 g.addGridNode(i,j,randStr);
             }
         }
 
         // Create edges with a 50% chance
-        for(int i=0;i<n;i++) {
-            for(int j=0;j<n;j++) {
+        for(int i=0;i<=n;i++) {
+            for(int j=0;j<=n;j++) {
                 // Go up
                 if(i<n-1 && Math.random()<.5) {
                     GridNode n1 = g.findNode(i,j);
