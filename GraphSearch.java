@@ -6,7 +6,7 @@ public class GraphSearch {
     public static ArrayList<Node> DFSRec(final Node start, final Node end) {
         ArrayList<Node> traversed = new ArrayList<Node>();
         traversed.add(start);
-        if(start == end) {
+        if(start == end || end == null || start == null) {
             return traversed;
         }
         for(Node n : start.adj) {

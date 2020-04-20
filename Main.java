@@ -435,6 +435,7 @@ class Main {
         for (int i = 0; i < n; i++) {
             String temp = "";
             int val = i;
+            // Generates values for each node inorder using possibleCharacters.
             for (int j = 0; j < (i / possibleCharacters.length()) + 1; j++) {
                 temp = possibleCharacters.charAt(val % possibleCharacters.length()) + temp;
                 val /= possibleCharacters.length();

@@ -11,11 +11,9 @@ public class Graph {
     }
 
     // Adds a node to the graph.
+    //  We assume that there will be no two nodes with duplicate values, since it doesn't really need to have unique values anyways.
     public void addNode(final String nodeVal) {
         Node temp = new Node(nodeVal);
-        if(nodeList.contains(temp)) {
-            return;
-        }
         nodeList.add(temp);
         // Sets up the Node for adjacencies
         HashSet<Node> emptySet = new HashSet<Node>();
